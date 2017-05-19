@@ -79,33 +79,6 @@ class Manufactures(models.Model):
     def __str__(self):
         return self.title_man
 
-class NavbarMenu(models.Model):
-
-    class Meta:
-        db_table = 'navbar_nemu'
-
-    name_menu = models.CharField(max_length=30, verbose_name='Name menu', default=None)
-    parent_menu = models.ForeignKey(
-        'NavbarMenu',
-        blank=True,
-        null=True,
-        verbose_name='Parent menu'
-    )
-
-    TYPE_SECTIONS = (
-        ('A', 'Articles category'),
-        ('P', 'Products category'),
-    )
-    type_menu = models.CharField(
-        max_length=1,
-        choices=TYPE_SECTIONS,
-        default='A',
-        verbose_name='Select type'
-    )
-    position_menu = models.PositiveSmallIntegerField(verbose_name='Position menu', default=1)
-
-    def __str__(self):
-        return self.name_menu
 
 class CategoryArticle(models.Model):
     class Meta:

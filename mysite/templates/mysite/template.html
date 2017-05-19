@@ -23,9 +23,18 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
         <ul class="nav navbar-nav">
-            {% for element in menu %}
-                <li><a href="#">{{ element.name_menu }}</a></li>
-            {% endfor %}
+            <li><a href="#">Home</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Catalog<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    {% for list in cat_pro %}
+                        <li><a href="">{{ list.title_cat }}</a></li>
+                    {% endfor %}
+                </ul>
+            </li>
+            <li><a href="#">Blog</a></li>
+            <li><a href="#">Contacts</a></li>
+
         </ul>
     <ul class="nav navbar-nav navbar-right">
         <li><a href="#" data-toggle="modal"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -69,16 +78,13 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
+            <h3>Category products</h3>
                 <div class="list-group">
                     {% for cat in cat_pro %}
                         <a href="#" class="list-group-item">{{ cat.title_cat }}</a>
                     {% endfor %}
                 </div>
-                <div class="list-group">
-                    {% for man_c in cat_man %}
-                        <a href="#" class="list-group-item">{{ man_c.name_category_man }}</a>
-                    {% endfor %}
-                </div>
+
         </div>
         <div class="col-md-9">
             {% block content %}

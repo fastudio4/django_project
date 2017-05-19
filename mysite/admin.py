@@ -1,7 +1,6 @@
 from django.contrib import admin
 
-from mysite.models import CategoryCatalog, Products, Manufactures, CategoryManufactures,  NavbarMenu, CategoryArticle, Article
-
+from mysite.models import CategoryCatalog, Products, Manufactures, CategoryManufactures, CategoryArticle, Article
 
 admin.site.register(CategoryCatalog)
 admin.site.register(Products)
@@ -15,12 +14,8 @@ class ManufacturesAdmin(admin.ModelAdmin):
     list_display = ('title_man',)
 admin.site.register(Manufactures, ManufacturesAdmin)
 
-class NavbarMenuAdmin(admin.ModelAdmin):
-    list_display = ('name_menu', 'parent_menu', 'type_menu', 'position_menu')
-admin.site.register(NavbarMenu, NavbarMenuAdmin)
-
 class CategoryArticleAdmin(admin.ModelAdmin):
-    list_display = ('title_cat',)
+    list_display = ('title_cat', 'parent_cat')
 admin.site.register(CategoryArticle, CategoryArticleAdmin)
 
 class ArticleAdmin(admin.ModelAdmin):

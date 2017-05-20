@@ -1,0 +1,28 @@
+{% extends 'mysite/index.html' %}
+
+{% block title %}<title> Home | Django lessons</title>{% endblock %}
+
+{% block list_menu_drop %}
+    {% for category in cat_pro %}
+        <li><a href="#">{{ category.title_cat }}</a></li>
+    {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="list-group">
+        <p class="list-group-item list-group-item-warning"><b>Category products</b></p>
+        {% for category in cat_pro %}
+            <a href="#" class="list-group-item">{{ category.title_cat }}</a>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block content %}
+   {% for article in home_page %}
+        {% if article.active_article %}
+            <p>{{ article.description_article }}</p>
+        {% endif %}
+   {% endfor %}
+
+{% endblock %}

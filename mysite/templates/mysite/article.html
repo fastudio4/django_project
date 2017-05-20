@@ -1,0 +1,24 @@
+{% extends 'mysite/index.html' %}
+
+{% block title %}<title>{{ article_one.title_article }} - Blog | Django lessons</title>{% endblock %}
+
+{% block list_menu_drop %}
+    {% for category in cat_pro %}
+        <li><a href="#">{{ category.title_cat }}</a></li>
+    {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="list-group">
+        <p class="list-group-item list-group-item-info"><b>Recent publications</b></p>
+        {% for article in articles %}
+            <a href="{% url 'article' article.pk %}" class="list-group-item">{{ article.title_article }}</a>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block content %}
+   <h2>{{ article_one.title_article }}</h2>
+    <p>{{ article_one.description_article }}</p>
+{% endblock %}

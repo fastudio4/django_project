@@ -1,10 +1,90 @@
+{% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title></title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  {% block title %}{% endblock %}
 </head>
-<body>
 
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="{% url 'home' %}"><span class="glyphicon glyphicon-off"></span> Django lessons</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Catalog<span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    {% block list_menu_drop %}
+                    {% endblock %}
+                </ul>
+            </li>
+            <li><a href="{% url 'blog' %}">Blog</a></li>
+            <li><a href="{% url 'contacts' %}">Contacts</a></li>
+
+        </ul>
+    <ul class="nav navbar-nav navbar-right">
+        <li><a href="#" data-toggle="modal"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#logIn" data-toggle="modal"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="modal fade" id="logIn" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header bg-success">
+                <button class="close" data-dismiss="modal">x</button>
+                <h4 class="modal-title">User authorization form</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                            <input type="text" class="form-control" placeholder="Username or email">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
+                            <input type="password" class="form-control" placeholder="Password">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-success">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer bg-success text-danger">
+                <b>The login form does not work!</b>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            {% block sidebar %}
+            {% endblock %}
+        </div>
+        <div class="col-md-9">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+</div>
 </body>
 </html>

@@ -1,5 +1,8 @@
 {% extends 'mysite/template.html' %}
 
-{% block content %}
-    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium aliquam aliquid aspernatur corporis, cum dolorem eaque, enim excepturi incidunt ipsum nihil non porro possimus repudiandae vel! Fugit labore sint veniam.
+{% block home %}
+    {% for article in home_page %}
+        <h2>{{ article.title_article }}</h2>
+        <p>{{ article.description_article }}</p>
+    {% endfor %}
 {% endblock %}

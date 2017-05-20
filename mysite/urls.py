@@ -6,5 +6,6 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', views.template, name='template'),
+    # url(r'^\w*$', views.home, name='home')
     # url(r'^(?P<title_pro>\w+)/$', views.product, name='product'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,8 +1,30 @@
-{% extends 'mysite/template.html' %}
+{% extends 'mysite/index.html' %}
 
-{% block home %}
-    {% for article in home_page %}
-        <h2>{{ article.title_article }}</h2>
-        <p>{{ article.description_article }}</p>
+{% block title %}<title>Catalog | Django lessons</title>{% endblock %}
+
+{% block list_menu_drop %}
+    {% for category in cat_pro %}
+        <li><a href="#">{{ category.title_cat }}</a></li>
     {% endfor %}
+{% endblock %}
+
+{% block sidebar %}
+
+    <div class="list-group">
+        <p class="list-group-item list-group-item-danger"><b>Filter form does not work!</b></p>
+        <p class="list-group-item">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur distinctio impedit, incidunt ipsam itaque reprehenderit sint tempore totam voluptate. Amet hic labore magnam molestiae nihil, quae quos sint totam!</p>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {% for category in cat_pro %}
+        <h3>{{ category.title_cat }}</h3>
+        {% if category.image_cat %}
+            <img src="{{ MEDIA_URL }}{{ category.image_cat }}" alt="{{ category.title_cat }}" width="150px"/>
+        {% else %}
+            <img src="#" alt="{{ category.title_cat }}" width="150px"/>
+        {% endif %} 
+        <p>{{ category.short_desc_cat }}</p>    
+   {% endfor %}
+
 {% endblock %}

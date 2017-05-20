@@ -1,7 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from mysite.models import CategoryManufactures, CategoryCatalog # for base
-from mysite.models import CategoryArticle, Article # article content
-from mysite.models import Products # catalog products
+from mysite.models import CategoryCatalog, Article
 
 def home(request):
     cat_pro = CategoryCatalog.objects.order_by('pk')
@@ -38,3 +36,7 @@ def contacts(request):
         'contact_page': contact_page,
         'cat_pro': cat_pro
     })
+
+def base_category_catalog(request):
+    cat_pro = CategoryCatalog.objects.order_by('pk')
+    return render(request, 'mysite/catalog.html', {'cat_pro': cat_pro})

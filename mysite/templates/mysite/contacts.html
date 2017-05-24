@@ -32,9 +32,10 @@
 {% endblock %}
 
 {% block content %}
-    {% if values_form %}
+    {% if name_form and email_form %}
         <blockquote>
-        Dear <mark>{{ values_form }}</mark>, thanks, but the form does not send anywhere yet
+        Dear <mark>{{ name_form }}</mark>, thanks, but the form does not send anywhere yet,<br>
+            and your email <mark>({{ email_form }})</mark> has not been saved
         </blockquote>
 
     {% endif %}

@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from mysite.models import CategoryCatalog, Article
-from mysite.forms import QuestionForm
+from mysite.forms import TestForm
 
 
 def home(request):
@@ -32,7 +32,7 @@ def article(request, pk):
 
 def contacts(request):
     contact_page = Article.objects.filter(category_article=3)
-    form = QuestionForm()
+    form = TestForm()
 
     context = {
         'contact_page': contact_page,
@@ -40,8 +40,9 @@ def contacts(request):
     }
 
     if request.method == 'POST':
-        values_form = request.POST.get('name')
-        context.update({'values_form': values_form})
+        name_form = request.POST.get('name')
+        email_form = request.POST.get('email')
+        context.update({'name_form': name_form, 'email_form': email_form})
 
     return render(request, 'mysite/contacts.html', context)
 

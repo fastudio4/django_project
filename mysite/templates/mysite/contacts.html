@@ -2,21 +2,42 @@
 
 {% block title %}<title>Contacts | Django lessons</title>{% endblock %}
 
-{% block list_menu_drop %}
-    {% for category in cat_pro %}
-        <li><a href="#">{{ category.title_cat }}</a></li>
-    {% endfor %}
-{% endblock %}
 
 {% block sidebar %}
-
     <div class="list-group">
-        <p class="list-group-item list-group-item-success"><b>Then when it's a form</b></p>
-        <p class="list-group-item">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea excepturi quam quibusdam. Aliquam amet animi, blanditiis consectetur, cumque eaque earum expedita fuga incidunt iusto mollitia nemo possimus quam quos repellat!</p>
+        <p class="list-group-item list-group-item-success"><b>Test form</b></p>
+        <div class="list-group-item">
+            <form method="post" action="{% url 'contacts' %}">{% csrf_token %}
+                {% for fields in form %}
+                    {% if forloop.first %}
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
+                                {{ fields }}
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="form-group">
+                            <div class="input-group">
+                                <span class="input-group-addon">@</span>
+                                {{ fields }}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                <button type="submit" class="btn btn-success">Submit</button>
+            </form>
+        </div>
     </div>
 {% endblock %}
 
 {% block content %}
+    {% if values_form %}
+        <blockquote>
+        Dear <mark>{{ values_form }}</mark>, thanks, but the form does not send anywhere yet
+        </blockquote>
+
+    {% endif %}
    {% for article in contact_page %}
         {% if article.active_article %}
             <p>{{ article.description_article}}</p>

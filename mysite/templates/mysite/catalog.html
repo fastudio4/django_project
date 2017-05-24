@@ -1,12 +1,8 @@
 {% extends 'mysite/index.html' %}
 
-{% block title %}<title>Catalog | Django lessons</title>{% endblock %}
+{% load staticfiles %}
 
-{% block list_menu_drop %}
-    {% for category in cat_pro %}
-        <li><a href="#">{{ category.title_cat }}</a></li>
-    {% endfor %}
-{% endblock %}
+{% block title %}<title>Catalog | Django lessons</title>{% endblock %}
 
 {% block sidebar %}
 
@@ -17,14 +13,17 @@
 {% endblock %}
 
 {% block content %}
-    {% for category in cat_pro %}
-        <h3>{{ category.title_cat }}</h3>
-        {% if category.image_cat %}
-            <img src="{{ MEDIA_URL }}{{ category.image_cat }}" alt="{{ category.title_cat }}" width="150px"/>
-        {% else %}
-            <img src="#" alt="{{ category.title_cat }}" width="150px"/>
-        {% endif %} 
-        <p>{{ category.short_desc_cat }}</p>    
+
+    {% for category in categories %}
+        <div class="block-catagory">
+            <h3>{{ category.title_cat }}</h3>
+            {% if category.image_cat %}
+                <img src="{{ MEDIA_URL }}{{ category.image_cat }}" alt="{{ category.title_cat }}" width="150px" class="img-rounded"/>
+            {% else %}
+                <img src="{% static 'image/noimagefound.jpg' %}" alt="{{ category.title_cat }}" width="150px" class="img-rounded"/>
+            {% endif %}
+            <p>{{ category.short_desc_cat }}</p>
+        </div>
    {% endfor %}
 
 {% endblock %}

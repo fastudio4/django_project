@@ -1,42 +1,53 @@
 from django.shortcuts import render, get_object_or_404
 from mysite.models import CategoryCatalog, Article
+from mysite.forms import QuestionForm
+
 
 def home(request):
     cat_pro = CategoryCatalog.objects.order_by('pk')
     home_page = Article.objects.filter(category_article=1).order_by('create_article')
-    return render(request, 'mysite/home.html', {
+    context = {
         'cat_pro': cat_pro,
         'home_page': home_page
-    })
+    }
+    return render(request, 'mysite/home.html', context)
 
 def blog(request):
     blog_page = Article.objects.filter(category_article=2).order_by('create_article')
     articles = Article.objects.filter(category_article=2).order_by('create_article')[:5]
-    cat_pro = CategoryCatalog.objects.order_by('pk')
-    return render(request, 'mysite/blog.html', {
+    context = {
         'blog_page': blog_page,
         'articles': articles,
-        'cat_pro': cat_pro
-    })
+    }
+    return render(request, 'mysite/blog.html', context)
 
 def article(request, pk):
     article_one = get_object_or_404(Article, pk=pk)
     articles = Article.objects.filter(category_article=2).order_by('create_article')[:5]
-    cat_pro = CategoryCatalog.objects.order_by('pk')
-    return render(request, 'mysite/article.html', {
+    context = {
         'article_one': article_one,
         'articles': articles,
-        'cat_pro': cat_pro
-    })
+    }
+    return render(request, 'mysite/article.html', context)
 
 def contacts(request):
     contact_page = Article.objects.filter(category_article=3)
-    cat_pro = CategoryCatalog.objects.order_by('pk')
-    return render(request, 'mysite/contacts.html', {
+    form = QuestionForm()
+
+    context = {
         'contact_page': contact_page,
-        'cat_pro': cat_pro
-    })
+        'form': form
+    }
+
+    if request.method == 'POST':
+        values_form = request.POST.get('name')
+        context.update({'values_form': values_form})
+
+    return render(request, 'mysite/contacts.html', context)
 
 def base_category_catalog(request):
-    cat_pro = CategoryCatalog.objects.order_by('pk')
-    return render(request, 'mysite/catalog.html', {'cat_pro': cat_pro})
+    categories = CategoryCatalog.objects.order_by('pk')
+    return render(request, 'mysite/catalog.html', {'categories': categories})
+
+
+#

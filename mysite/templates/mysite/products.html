@@ -22,7 +22,7 @@
             {% endif %}
         {% endif %}
         <div class="col-lg-4 col-md-4 col-sm-6 col-ex-12">
-            <a href="{% url 'product' title_cat=category code_pro=product.code_pro %}" class="no-deco">
+            <a href="{% url 'product' category product.code_pro %}" class="no-deco">
             <div class="thumbnail">
             {% if product.image_pro %}
 {#                <img src="{{ MEDIA_URL }}{{ category.image_cat }}" alt="{{ category.title_cat }}">#}

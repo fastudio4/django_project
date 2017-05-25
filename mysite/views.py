@@ -60,9 +60,10 @@ def products(request, title_cat):
     return render(request, 'mysite/products.html', context)
 
 def product(request, title_cat, code_pro):
-    product_page = Products.objects.filter(code_pro=code_pro)
-
+    product_page = Products.objects.get(code_pro=code_pro)
+    category_page = CategoryCatalog.objects.get(title_cat=title_cat)
     context = {
-        'product': product_page
+        'product': product_page,
+        'category': category_page
     }
     return render(request, 'mysite/page_product.html', context)

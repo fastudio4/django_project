@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from mysite.models import CategoryCatalog, Article
+from mysite.models import CategoryCatalog, Article, Products
 from mysite.forms import TestForm
 
 
@@ -33,12 +33,10 @@ def article(request, pk):
 def contacts(request):
     contact_page = Article.objects.filter(category_article=3)
     form = TestForm()
-
     context = {
         'contact_page': contact_page,
         'form': form
     }
-
     if request.method == 'POST':
         name_form = request.POST.get('name')
         email_form = request.POST.get('email')
@@ -51,4 +49,20 @@ def base_category_catalog(request):
     return render(request, 'mysite/catalog.html', {'categories': categories})
 
 
-#
+def products(request, title_cat):
+    category = CategoryCatalog.objects.get(title_cat=title_cat)
+    products_cat = Products.objects.filter(category_pro=category)
+
+    context = {
+        'products': products_cat,
+        'category': category.title_cat
+    }
+    return render(request, 'mysite/products.html', context)
+
+def product(request, title_cat, code_pro):
+    product_page = Products.objects.filter(code_pro=code_pro)
+
+    context = {
+        'product': product_page
+    }
+    return render(request, 'mysite/page_product.html', context)

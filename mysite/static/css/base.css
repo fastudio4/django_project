@@ -1,4 +1,3 @@
-.block-catagory {
-    /*display: inline-block;*/
-    /*width: 33%;*/
+a.no-deco {
+    text-decoration: none;
 }

@@ -1,0 +1,19 @@
+{% extends 'mysite/index.html' %}
+
+{% load staticfiles %}
+
+{% block title %}<title>{{ product.title_pro }} | Django lessons</title>{% endblock %}
+
+{% block sidebar %}
+
+    <div class="list-group">
+        <p class="list-group-item list-group-item-danger"><b>Filter form does not work!</b></p>
+        <p class="list-group-item">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi consectetur distinctio impedit, incidunt ipsam itaque reprehenderit sint tempore totam voluptate. Amet hic labore magnam molestiae nihil, quae quos sint totam!</p>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <h2>{{ product.title_pro }}</h2>
+    <p>{{ product.descriptions_pro }}</p>
+
+{% endblock %}

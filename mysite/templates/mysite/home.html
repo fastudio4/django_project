@@ -7,7 +7,7 @@
     <div class="list-group">
         <p class="list-group-item list-group-item-warning"><b>Category products</b></p>
         {% for category in cat_pro %}
-            <a href="#" class="list-group-item">{{ category.title_cat }}</a>
+            <a href="{% url 'products' category.title_cat %}" class="list-group-item">{{ category.title_cat }}</a>
         {% endfor %}
     </div>
 {% endblock %}

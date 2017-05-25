@@ -17,7 +17,8 @@
    {% for article in blog_page %}
         {% if article.active_article %}
             <h2><a href="{% url 'article' article.pk %}">{{ article.title_article }}</a></h2>
-            <p>{{ article.description_article}}</p>
+            <p>{{ article.description_article|truncatechars:500}}</p>
+            <a href="{% url 'article' article.pk %}" class="btn btn-default">More &raquo;</a>
         {% endif %}
    {% endfor %}
 

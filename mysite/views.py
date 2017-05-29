@@ -6,9 +6,11 @@ from mysite.forms import TestForm
 def home(request):
     cat_pro = CategoryCatalog.objects.order_by('pk')
     home_page = Article.objects.filter(category_article=1).order_by('create_article')
+    article_blog = Article.objects.filter(category_article=2).order_by('create_article')[:4]
     context = {
         'cat_pro': cat_pro,
-        'home_page': home_page
+        'home_page': home_page,
+        'blog': article_blog
     }
     return render(request, 'mysite/home.html', context)
 

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from ckeditor_uploader.fields import RichTextUploadingField
 
 class CategoryCatalog(models.Model):
 
@@ -108,7 +109,7 @@ class Article(models.Model):
 
     title_article = models.CharField(max_length=100, verbose_name='Title article')
     category_article = models.ForeignKey('CategoryArticle', verbose_name='Category article')
-    description_article = models.TextField(verbose_name='Description')
+    description_article = RichTextUploadingField(config_name='awesome_ckeditor')
     active_article = models.BooleanField(verbose_name='Active article', default=True)
     create_article = models.DateTimeField(verbose_name='Create data article', default=timezone.now)
 

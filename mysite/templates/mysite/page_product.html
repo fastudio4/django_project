@@ -13,7 +13,13 @@
 {% endblock %}
 
 {% block content %}
-    <h2>{{ product.title_pro }}</h2>
+    <h2>{{ product.manufactures_pro }} {{ product.title_pro }}</h2>
+    <p class="small">Code: {{ product.code_pro }}</p>
+    {% if product.image_pro %}
+        <img src="{{ MEDIA_URL }}{{ product.image_pro }}" alt="{{ product.title_pro }}
+    {% else %}
+        <img src="{% static 'image/noimagefound.jpg' %}" alt="{{ product.title_pro }}">
+    {% endif %}
     <p>{{ product.descriptions_pro }}</p>
 
 {% endblock %}

@@ -15,5 +15,5 @@
 
 {% block content %}
    <h2>{{ article_one.title_article }}</h2>
-    <p>{{ article_one.description_article }}</p>
+    <p>{{ article_one.description_article|safe }}</p>
 {% endblock %}

@@ -20,3 +20,35 @@
    {% endfor %}
 
 {% endblock %}
+{#footer bar#}
+{% block section_site %}
+    <ul class="list-unstyled">
+        <li><a href="{% url 'home' %}">Home</a></li>
+        <li><a href="{% url 'base_category' %}">Catalog</a></li>
+        <li><a href="{% url 'blog' %}">Blog</a></li>
+        <li><a href="{% url 'contacts' %}">Contacts</a></li>
+    </ul>
+{% endblock %}
+
+{% block section_catalog %}
+    <ul class="list-unstyled">
+        {% for category in cat_pro %}
+            <li><a href="{% url 'products' category.title_cat %}">{{ category.title_cat }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+{% block blog_article %}
+    <ul class="list-unstyled">
+        {% for article in blog %}
+            <li><a href="{% url 'article' article.pk %}">{{ article.title_article|truncatechars:80 }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+{% block contacts %}
+    <ul class="list-unstyled">
+        <li>Berlin</li>
+        <li>DieSachbearbeiter</li>
+        <li>Choriner Straße 49 10435</li>
+        <li>moinsen@blindtextgenerator.com</li>
+    </ul>
+{% endblock %}

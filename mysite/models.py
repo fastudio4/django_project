@@ -112,6 +112,8 @@ class Article(models.Model):
     description_article = RichTextUploadingField(config_name='awesome_ckeditor')
     active_article = models.BooleanField(verbose_name='Active article', default=True)
     create_article = models.DateTimeField(verbose_name='Create data article', default=timezone.now)
+    like = models.SmallIntegerField(default=0)
+    comment = models.TextField(verbose_name='Comments', blank=True, null=True, default=None)
 
     def publish(self):
         self.create_article = timezone.now()

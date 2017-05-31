@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from mysite.models import CategoryCatalog, Article, Products
 from mysite.forms import TestForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 def home(request):
@@ -15,11 +16,22 @@ def home(request):
     return render(request, 'mysite/home.html', context)
 
 def blog(request):
+    last_article = Article.objects.filter(category_article=2).order_by('create_article')[:5]
     blog_page = Article.objects.filter(category_article=2).order_by('create_article')
-    articles = Article.objects.filter(category_article=2).order_by('create_article')[:5]
+    paginator_page = Paginator(blog_page, 3)
+    page = request.GET.get('page')
+
+    try:
+        content_page = paginator_page.page(page)
+    except PageNotAnInteger:
+        content_page = paginator_page.page(1)
+    except EmptyPage:
+        content_page = paginator_page.page(paginator_page.num_pages)
     context = {
-        'blog_page': blog_page,
-        'articles': articles,
+
+        'blog_page': content_page,
+        'paginator_count': paginator_page.page_range,
+        'articles': last_article,
     }
     return render(request, 'mysite/blog.html', context)
 
@@ -69,3 +81,9 @@ def product(request, title_cat, code_pro):
         'category': category_page
     }
     return render(request, 'mysite/page_product.html', context)
+
+def addlike(request, pk):
+    add = get_object_or_404(Article, pk=pk)
+    add.like += 1
+    add.save()
+    return redirect('/blog/%s' % pk)

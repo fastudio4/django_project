@@ -17,7 +17,7 @@
     {% for article in blog_page %}
         {% if article.active_article %}
             <div class="container-fluid">
-            <h2><a href="{% url 'article' article.pk %}">{{ article.title_article }}</a></h2>
+            <h2><a class="no-deco" href="{% url 'article' article.pk %}">{{ article.title_article }}</a></h2>
             <p>{{ article.description_article|safe|truncatechars:500}}</p>
             <a href="{% url 'article' article.pk %}" class="btn btn-default">More &raquo;</a>
             </div>
@@ -33,7 +33,7 @@
                 </a>
             {% endif %}
             {% for number in paginator_count %}
-                <li><a href="?page={{ number }}">{{ number }}</a></li>
+                <li><a href="?page={{ number }}">{{ number }}</a>{{ blog_page.num_pages }}</li>
             {% endfor %}
         {% if blog_page.has_next %}
             <li>

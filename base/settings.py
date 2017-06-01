@@ -137,4 +137,7 @@ CKEDITOR_CONFIGS = {
     'awesome_ckeditor': {
         'toolbar': 'Normal',
     },
+    'frontend': {
+        'toolbar': "Basic",
+    },
 }

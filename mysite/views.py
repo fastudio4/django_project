@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from mysite.models import CategoryCatalog, Article, Products
-from mysite.forms import TestForm
+from mysite.models import CategoryCatalog, Article, Products, Comments
+from mysite.forms import TestForm, CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 
 
 def home(request):
@@ -37,10 +38,14 @@ def blog(request):
 
 def article(request, pk):
     article_one = get_object_or_404(Article, pk=pk)
+    comment = Comments.objects.filter(comment_article=pk).order_by('pk')
+    form = CommentForm
     articles = Article.objects.filter(category_article=2).order_by('create_article')[:5]
     context = {
         'article_one': article_one,
         'articles': articles,
+        'comments': comment,
+        'comment_form': form
     }
     return render(request, 'mysite/article.html', context)
 
@@ -86,4 +91,13 @@ def addlike(request, pk):
     add = get_object_or_404(Article, pk=pk)
     add.like += 1
     add.save()
+    return redirect('/blog/%s' % pk)
+
+def comments(request, pk):
+    if request.POST:
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.comment_article = Article.objects.get(pk=pk)
+            form.save()
     return redirect('/blog/%s' % pk)

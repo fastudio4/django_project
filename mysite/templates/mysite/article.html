@@ -1,4 +1,5 @@
 {% extends 'mysite/index.html' %}
+{% load staticfiles %}
 
 {% block title %}<title>{{ article_one.title_article }} - Blog | Django lessons</title>{% endblock %}
 
@@ -18,5 +19,16 @@
    <h2>{{ article_one.title_article }}</h2>
     <p>{{ article_one.description_article|safe }}</p>
     <a href="{% url 'addlike' article_one.pk %}" class="btn btn-default"><span class="glyphicon glyphicon-thumbs-up"></span> If you liked <span class="badge">{{ article_one.like }}</span></a>
+    <div class="container-fluid">
+        {% for comment in comments %}
+            <div class="well">{{ comment.comment_text|safe }}</div>
+        {% endfor %}
+    </div>
+        <form action="/blog/{{ article_one.pk }}/comment/" method="post">
+            {% csrf_token %}
+            {{ comment_form.media }}
+            {{ comment_form.as_p }}
+            <input type="submit" class="btn btn-info" value="Add comment">
+        </form>
     </div>
 {% endblock %}

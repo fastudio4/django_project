@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from ckeditor_uploader.fields import RichTextUploadingField
+from ckeditor.fields import RichTextField
 
 class CategoryCatalog(models.Model):
 
@@ -113,7 +114,6 @@ class Article(models.Model):
     active_article = models.BooleanField(verbose_name='Active article', default=True)
     create_article = models.DateTimeField(verbose_name='Create data article', default=timezone.now)
     like = models.SmallIntegerField(default=0)
-    comment = models.TextField(verbose_name='Comments', blank=True, null=True, default=None)
 
     def publish(self):
         self.create_article = timezone.now()
@@ -122,3 +122,9 @@ class Article(models.Model):
     def __str__(self):
         return self.title_article
 
+class Comments(models.Model):
+    class Meta:
+        db_table = 'comments_article'
+
+    comment_text = RichTextField(config_name='frontend', verbose_name='Comment')
+    comment_article = models.ForeignKey(Article)

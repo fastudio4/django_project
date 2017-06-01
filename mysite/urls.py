@@ -12,6 +12,7 @@ urlpatterns = [
     url(r'^catalog/(?P<title_cat>\w+)/(?P<code_pro>[\w-]+)/$', views.product, name='product'),
     url(r'^blog/$', views.blog, name='blog'),
     url(r'^blog/(?P<pk>[0-9]+)/$', views.article, name='article'),
+    url(r'^blog/(?P<pk>[0-9]+)/comment/$', views.comments, name='comments'),
     url(r'^blog/addlike/(?P<pk>[0-9]+)/$', views.addlike, name='addlike'),
     url(r'^contacts/$', views.contacts, name='contacts'),
 

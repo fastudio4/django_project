@@ -1,8 +1,10 @@
+from django.core.exceptions import ObjectDoesNotExist
+from django.http import response, Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from mysite.models import CategoryCatalog, Article, Products, Comments
 from mysite.forms import TestForm, CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-
+from django.contrib.auth import authenticate, login, logout
 
 
 def home(request):
@@ -45,7 +47,8 @@ def article(request, pk):
         'article_one': article_one,
         'articles': articles,
         'comments': comment,
-        'comment_form': form
+        'comment_form': form,
+        'user': auth.get_user(request).username
     }
     return render(request, 'mysite/article.html', context)
 
@@ -88,16 +91,47 @@ def product(request, title_cat, code_pro):
     return render(request, 'mysite/page_product.html', context)
 
 def addlike(request, pk):
-    add = get_object_or_404(Article, pk=pk)
-    add.like += 1
-    add.save()
+    try:
+        if pk in request.COOKIES:
+            redirect('/blog/%s' % pk)
+        else:
+            add = Article.objects.get(pk=pk)
+            add.like += 1
+            add.save()
+            response = redirect('/blog/%s' % pk)
+            response.set_cookie(pk, 'test')
+            return response
+    except ObjectDoesNotExist:
+        raise Http404
     return redirect('/blog/%s' % pk)
 
 def comments(request, pk):
-    if request.POST:
+    if request.POST and ('block' not in request.session):
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.comment_article = Article.objects.get(pk=pk)
             form.save()
+            request.session.set_expiry(60)
+            request.session['block'] = True
     return redirect('/blog/%s' % pk)
+
+
+def login(request):
+    if request.POST:
+        username = request.POST.get['user']
+        password = request.POST.get['pass']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+            return redirect('/')
+        else:
+            context = {'error_login': 'Incorrect username or password'}
+            return render(request, 'mysite/login.html', context)
+    else:
+        return redirect('/')
+
+def logout_(request):
+    logout(request)
+    return redirect('/')

@@ -6,6 +6,8 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url(r'^$', views.home, name='home'),
+    url(r'^login/$', views.login, name='login'),
+    url(r'^logout/$', views.logout_, name='logout'),
     url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     url(r'^catalog/$', views.base_category_catalog, name='base_category'),
     url(r'^catalog/(?P<title_cat>\w+)/$', views.products, name='products'),
